@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tworzenie elementów</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: #d8a3cf;
+text-align: center;
+}
+
+.user-entry {
+margin: 10px;
+padding: 10px;
+border: 1px solid #85167c;
+display: block;
+}
+
+.remove-btn, #clearBtn {
+background-color: rgb(190, 68, 68);
+color: white;
+border: 2px;
+padding: 5px;
+margin: 10px;
+cursor: pointer;
+}
+
+</style>
+
+</head>
+<body>
+<h1>tworzenie elementów</h1>
+<input id="name" type="text" placeholder="Imie"> <br><br>
+<input id="surname" type="text" placeholder="Nazwisko"> <br><br>
+<input id="textColor" type="color"> Wybierz kolor czcionki <br><br>
+<input id="bgColor" type="color"> Wybierz kolor tla <br><br>
+<label><input id="adult" type="checkbox"> Pelnoletni/a</label> <br><br>
+<button id="addBtn">Dodaj</button>
+<button id="clearBtn">Wyczysc </button>
+
+<div id="userContainer"></div>
+
+<script>
+document.getElementById("addBtn").onclick = function() {
+let name = document.getElementById("name").value.trim();
+let surname = document.getElementById("surname").value.trim();
+let textColor = document.getElementById("textColor").value;
+let bgColor = document.getElementById("bgColor").value;
+let isAdult = document.getElementById("adult").checked ? " jest pełnoletni/a" : " jest niepełnoletni/a";
+
+if (name.length < 2 || surname.length < 2) {
+alert("wpisz poprawnie imie i nazwisko");
+return;
+}
+
+let userEntry = document.createElement("div");
+userEntry.className = "user-entry";
+userEntry.style.color = textColor;
+userEntry.style.backgroundColor = bgColor;
+userEntry.innerText = name + " " + surname + " - " + isAdult;
+
+let removeBtn = document.createElement("button");
+removeBtn.className = "remove-btn";
+removeBtn.innerText = "Usuń";
+removeBtn.onclick = function() {
+userEntry.remove();
+};
+
+userEntry.appendChild(removeBtn);
+document.getElementById("userContainer").appendChild(userEntry);
+
+document.getElementById("name").value = "";
+document.getElementById("surname").value = "";
+document.getElementById("adult").checked = false;
+};
+
+document.getElementById("clearBtn").onclick = function() {
+document.getElementById("userContainer").innerHTML = "";
+};
+</script>
+</body>
+</html>
